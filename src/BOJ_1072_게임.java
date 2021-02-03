@@ -8,67 +8,57 @@ public class BOJ_1072_게임 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String s = br.readLine();
 		StringTokenizer st = new StringTokenizer(s, " ");
-		int X = Integer.parseInt(st.nextToken());
-		int Y = Integer.parseInt(st.nextToken());
-
-		double percent = 1.0 * Y / X;
-		percent *= 100;
-		int percentNow = (int) percent;
+		long X = Integer.parseInt(st.nextToken());
+		long Y = Integer.parseInt(st.nextToken());
+		//double형 썼다가 망함... 다신 쓰지 말자 
+		long percent = (Y * 100) / X;
+		
+		long percentNow = percent;
 		long result = 0;
 
 		long tempX = 0;
 		long tempY = 0;
 		long tempEnd = 1000000000;
-		long tempStart = 0;
+		long tempStart = 1;
+		long temS = tempStart, temE = tempEnd;
 		if (percentNow >= 99) {
 			result = -1;
 		} else {
 			while (true) {
-				tempX = X + tempEnd;
-				tempY = Y + tempEnd;
-				percent = 1.0 * tempY / tempX;
-				percent *= 100;
-				int percentTemp = (int) percent;
+				tempX = X + temE;
+				tempY = Y + temE;
+				percent = (tempY * 100) / tempX;
+	
+				long percentTemp = percent;
 				if (percentNow < percentTemp) {
-					tempEnd = tempEnd/2 +1;
-//					System.out.println(tempEnd);
+					tempEnd = temE;
+					temE = temE / 2;
+					
 				} else {
-					if(tempEnd==0) tempEnd=1;
-					tempStart = tempEnd;
-					tempEnd= tempEnd*2 + 1;
-//					
+					break; 
+				}
+			}
+
+			while (true) {
+				tempX = X + temS;
+				tempY = Y + temS;
+				percent = (tempY * 100) / tempX;
+				long percentTemp = percent;
+			
+				if (percentNow >= percentTemp) {
+					tempStart = temS;
+					temS = temS * 2;
+				} else {
 					break;
 				}
 			}
-//			long nowTempStart=tempStart;
-//			while(true) {
-//				
-//				tempX = X + nowTempStart;
-//				tempY = Y + nowTempStart;
-//				percent = 1.0 * tempY / tempX;
-//				percent *= 100;
-//				int percentTemp = (int) percent;
-//
-//				if (percentNow >= percentTemp) {
-//					if(nowTempStart+1>=tempEnd) {
-//						System.out.println(tempStart+ " "+tempEnd);
-//						break;
-//					}
-//					tempStart = (nowTempStart+tempEnd)/2+1;
-//					nowTempStart=tempStart;
-//	
-//				} else {
-//					System.out.println(tempStart+ " "+tempEnd);
-//					break;
-//				}
-//			}
-			
-			for (long i = tempStart; i <= tempEnd+1; i++) {
+
+			for (long i = tempStart; i <= tempEnd; i++) {
 				tempX = X + i;
 				tempY = Y + i;
-				percent = 1.0 * tempY / tempX;
-				percent *= 100;
-				int percentTemp = (int) percent;
+				percent = (tempY * 100) / tempX;
+				long percentTemp = percent;
+	
 				if (percentNow < percentTemp) {
 					result = i;
 					break;

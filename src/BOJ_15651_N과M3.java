@@ -3,7 +3,7 @@
 
 import java.util.Scanner;
 
-public class BOJ_15651_N과M {
+public class BOJ_15651_N과M3 {
 	static int N;
 	static int M;
 	
