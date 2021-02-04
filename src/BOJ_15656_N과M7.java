@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class BOJ_15656_N과M7 {
-	
+	//중복순열
 	static int number[];
 	static int line[];
 	static int N, M;

@@ -1,16 +1,12 @@
-
-
-
 import java.util.Scanner;
 
 public class BOJ_15651_N과M3 {
 	static int N;
 	static int M;
-	
-	
+
 	static StringBuilder sb = new StringBuilder();
 	static int[] count;
-	
+	//n:시작점 m:끝점
 	static void print(int n, int m) {
 		if (n ==m) {
 			for(int r : count) {
@@ -21,7 +17,7 @@ public class BOJ_15651_N과M3 {
 		}
 		
 		
-		
+		//중복순열
 		for (int i = 1; i <= N; i++) {
 			
 			count[n] = i;

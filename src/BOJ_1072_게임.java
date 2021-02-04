@@ -8,6 +8,8 @@ public class BOJ_1072_게임 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String s = br.readLine();
 		StringTokenizer st = new StringTokenizer(s, " ");
+		
+		
 		long X = Integer.parseInt(st.nextToken());
 		long Y = Integer.parseInt(st.nextToken());
 		//double형 썼다가 망함... 다신 쓰지 말자 
@@ -20,7 +22,7 @@ public class BOJ_1072_게임 {
 		long tempY = 0;
 		long tempEnd = 1000000000;
 		long tempStart = 1;
-		long temS = tempStart, temE = tempEnd;
+		long temS = tempStart, temE = tempEnd; //temS->임시tempStart , temE->임시tempEnd
 		if (percentNow >= 99) {
 			result = -1;
 		} else {
@@ -31,7 +33,7 @@ public class BOJ_1072_게임 {
 	
 				long percentTemp = percent;
 				if (percentNow < percentTemp) {
-					tempEnd = temE;
+					tempEnd = temE;	//만약 지금 퍼센트가 임시퍼센트보다 높으면 End값을 반으로 줄여라
 					temE = temE / 2;
 					
 				} else {
@@ -47,12 +49,12 @@ public class BOJ_1072_게임 {
 			
 				if (percentNow >= percentTemp) {
 					tempStart = temS;
-					temS = temS * 2;
+					temS = temS * 2;//만약 지금 퍼센트가 임시퍼센트보다 낮으면 End값을 두배로 해라
 				} else {
 					break;
 				}
 			}
-
+			//정해졌으면 탐색
 			for (long i = tempStart; i <= tempEnd; i++) {
 				tempX = X + i;
 				tempY = Y + i;
