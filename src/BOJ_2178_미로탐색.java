@@ -10,7 +10,6 @@ public class BOJ_2178_미로탐색 {
 	static int N, M;
 	static int[][] direction = { { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 0 } };
 
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String s = br.readLine();
@@ -19,66 +18,38 @@ public class BOJ_2178_미로탐색 {
 		M = Integer.parseInt(st.nextToken());
 		int[][] miro = new int[N][M];
 		boolean[][] visited = new boolean[N][M];
-		boolean[][] copy = new boolean[N][M];
-		Queue<int[]> queue[][] = new LinkedList[N][M];
+
 		for (int i = 0; i < N; i++) {
 			s = br.readLine();
-			queue[i] = new LinkedList[M];
 			for (int j = 0; j < M; j++) {
-				queue[i][j] = new LinkedList<>();
-				int temp = s.charAt(j) - '0';
-				if (temp == 0) {
+				char temp = s.charAt(j);
+				if (temp == '0') {
 					visited[i][j] = true;
-					copy[i][j] = true;
 				}
 			}
 		}
-		Queue<int[]> line = new LinkedList<>();
-		
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (!copy[i][j]) {
-					copy[i][j] = true;
-					for (int k = 0; k < 4; k++) {
-						int ni = i + direction[k][0];
-						int nj = j + direction[k][1];
-						if (isIn(ni, nj) && !copy[ni][nj]) {
-							queue[i][j].offer(new int[] { ni, nj });
-						}
-					}
-				}
-			}
-		}
-		Stack<int[]> stack = new Stack<>();
+		miro[0][0] = 1;
 
-		line.offer(new int[] { 0, 0 });
-
-		while (!line.isEmpty()) {
-			int[] temp = line.poll();
-			
+		Queue<int[]> queue = new LinkedList<>();
+		queue.add(new int[] { 0, 0 });
+		outer: while (!queue.isEmpty()) {
+			int[] temp = queue.poll();
+			if(visited[temp[0]][temp[1]]) continue; //방문했던 곳은 아래거 수행하지 말고 꼭 그냥 넘어가자!
 			visited[temp[0]][temp[1]] = true;
-			
-			if (temp[0] == N - 1 && temp[1] == M - 1) {
-				break;
-			}
+			for (int i = 0; i < 4; i++) {
+				int ni = temp[0] + direction[i][0];
+				int nj = temp[1] + direction[i][1];
+				if (isIn(ni, nj) && !visited[ni][nj]) {
+					miro[ni][nj] = miro[temp[0]][temp[1]] + 1;
+					if (ni == N - 1 && nj == M - 1) {
+						break outer;
+					}
+					queue.add(new int[] { ni, nj });
 
-			if (queue[temp[0]][temp[1]].size() > 1) {
-				stack.push(new int[] { temp[0], temp[1] });
+				}
 			}
-			if (queue[temp[0]][temp[1]].isEmpty()) {
-				int[] temp3 = stack.pop();
-				line.offer(temp3);
-				visited[temp3[0]][temp3[1]]= false;
-			} else {
-				
-				int[] temp2 = queue[temp[0]][temp[1]].poll();
-				miro[temp2[0]][temp2[1]] = miro[temp[0]][temp[1]] + 1;
-				line.offer(temp2);
-			}
-			
-
 		}
-		System.out.println(miro[N - 1][M - 1] + 1);
+		System.out.println(miro[N - 1][M - 1]);
 	}
 
 	static boolean isIn(int a, int b) {
