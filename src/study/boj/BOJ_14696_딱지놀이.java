@@ -15,6 +15,7 @@ public class BOJ_14696_딱지놀이 {
 			int[] bCard = new int[5];
 			char winner ='D';
 			StringTokenizer st = new StringTokenizer(br.readLine());
+			st.nextToken();
 			while(st.hasMoreTokens()) {
 				int temp = Integer.parseInt(st.nextToken());
 				switch(temp) {
@@ -33,6 +34,7 @@ public class BOJ_14696_딱지놀이 {
 				}
 			}
 			st = new StringTokenizer(br.readLine());
+			st.nextToken();
 			while(st.hasMoreTokens()) {
 				int temp = Integer.parseInt(st.nextToken());
 				switch(temp) {
@@ -50,38 +52,17 @@ public class BOJ_14696_딱지놀이 {
 					break;
 				}
 			}
-			
-			if(aCard[4]!=bCard[4]) {
-				if(aCard[4]>bCard[4]) {
-					winner = 'A';
-				}else {
-					winner = 'B';
-				}
-			}else {
-				if(aCard[3]!=bCard[3]) {
-					if(aCard[3]>bCard[3]) {
+			for(int a=4;a>0;a--) {
+				if(aCard[a]!=bCard[a]) {
+					if(aCard[a]>bCard[a]) {
 						winner = 'A';
 					}else {
 						winner = 'B';
 					}
-				}else {
-					if(aCard[2]!=bCard[2]) {
-						if(aCard[2]>bCard[2]) {
-							winner = 'A';
-						}else {
-							winner = 'B';
-						}
-					}else {
-						if(aCard[1]!=bCard[1]) {
-							if(aCard[1]>bCard[1]) {
-								winner = 'A';
-							}else {
-								winner = 'B';
-							}
-						}
-					}
+					break;
 				}
 			}
+			
 			
 			sb.append(winner).append("\n");
 		}
