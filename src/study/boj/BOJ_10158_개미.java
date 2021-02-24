@@ -17,42 +17,16 @@ public class BOJ_10158_개미 {
 		long nowN = Long.parseLong(st.nextToken());
 		long nowM = Long.parseLong(st.nextToken());
 		long time = Long.parseLong(br.readLine());
-		long length = lcm(2*N,2*M);
-		int nDeltas = 1;
-		int mDeltas = 1;
-		time %= length;
-		int now =0;
-		while(now<time) {
-			long nn = nowN+nDeltas;
-			long nm = nowM+mDeltas;
-			now++;
-			if(nn>N || nn<0) {
-				nDeltas = -nDeltas;
-				nn = nowN+nDeltas;
-			}
-			if(nm>M || nm<0) {
-				mDeltas = -mDeltas;
-				nm = nowM+mDeltas;
-			}
-			nowN = nn;
-			nowM = nm;
-			
-		}
-
+		
+		long timeN = (nowN+time)%(2*N);
+		long timeM = (nowM+time)%(2*M);
+		
+		if(timeN>N) timeN = (2*N) - timeN;
+		if(timeM>M) timeM = (2*M) - timeM;
+		
 		StringBuilder sb = new StringBuilder();
-		sb.append(nowN).append(" ").append(nowM);
+		sb.append(timeN).append(" ").append(timeM);
 		System.out.println(sb);
 	}
-	static long gcd(long a, long b){
-		while(b!=0){
-			long r = a%b;
-			a= b;
-			b= r;
-		}
-		return a;
-	}
 
-	static long lcm(long a, long b){
-	    return a * b / gcd(a,b);
-	}
 }
