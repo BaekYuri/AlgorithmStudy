@@ -25,7 +25,7 @@ public class BOJ_1485_정사각형 {
 			int a = point[0][0];
 			int b = point[0][1];
 
-			Arrays.sort(point, new Comparator<int[]>() {
+			Arrays.sort(point, new Comparator<int[]>() {//첫 원소와 떨어진 거리를 기준으로 오름차순
 				@Override
 				public int compare(int[] o1, int[] o2) {
 					int distance1 = Math.abs(o1[0] - a)*Math.abs(o1[0] - a) + Math.abs(o1[1] - b)*Math.abs(o1[1] - b);
@@ -34,22 +34,22 @@ public class BOJ_1485_정사각형 {
 				}
 			});
 			
-			
+			//첫 변과 두번째변의 길이 재기
 			int distance = Math.abs(point[1][0] - a)*Math.abs(point[1][0] - a) + Math.abs(point[1][1] - b)*Math.abs(point[1][1] - b);
 			boolean isSquare = true;
-
+			//첫 변과 세번째변의 길이 재기
 			int tempDistance = Math.abs(point[2][0] - a)*Math.abs(point[2][0] - a) + Math.abs(point[2][1] - b)*Math.abs(point[2][1] - b);
 			if (distance != tempDistance)
 				isSquare = false;
-
+			//세번째 변과 네번째 변의 길이 재기
 			tempDistance = Math.abs(point[2][0] - point[3][0])*Math.abs(point[2][0] - point[3][0]) + Math.abs(point[2][1] - point[3][1])* Math.abs(point[2][1] - point[3][1]);
 			if (distance != tempDistance)
 				isSquare = false;
-			
+			//두번째 변과 네번째 변의 길이 재기
 			tempDistance = Math.abs(point[1][0] - point[3][0])*Math.abs(point[1][0] - point[3][0]) + Math.abs(point[1][1] - point[3][1])* Math.abs(point[1][1] - point[3][1]);
 			if (distance != tempDistance)
 				isSquare = false;
-
+			//네 변이 모두 같다면 대각선 길이도 같은지 확인
 			if (isSquare) {
 				int s1 = Math.abs(point[0][0] - point[3][0])* Math.abs(point[0][0] - point[3][0]) + Math.abs(point[0][1] - point[3][1])*Math.abs(point[0][1] - point[3][1]);
 				int s2 = Math.abs(point[1][0] - point[2][0])*Math.abs(point[1][0] - point[2][0]) + Math.abs(point[1][1] - point[2][1])*Math.abs(point[1][1] - point[2][1]);

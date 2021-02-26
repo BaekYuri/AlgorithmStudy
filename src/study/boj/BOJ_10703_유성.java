@@ -26,41 +26,41 @@ public class BOJ_10703_유성 {
 			}
 		}
 
-		boolean canGo = true;
+
 		if (count != 0) {
 
 			int length = Integer.MAX_VALUE;
-			for (int j = 0; j < C; j++) {
-				int under = -1;
-				int up = R - 1;
+			int[][] locate = new int[C][2];
+			for (int j = 0; j < C; j++) {//각 열마다 유성의 끝점과 땅의 시작점 구하기
+				locate[j][0] = -1;
+				locate[j][1] = R - 1;
 				for (int i = 0; i < R; i++) {
 					if (picture[i][j] == '#') {
-						under = i;
+						locate[j][1] = i;
 						break;
 					}
 					if (picture[i][j] == 'X') {
-						up = i;
+						locate[j][0] = i;
 
 					}
 				}
-				if (up == -1) {
+				if (locate[j][0] == -1) {
 					continue;
 				}
 
-				length = Integer.min(length, up - under);
+				length = Integer.min(length, locate[j][1] - locate[j][0]);
 
 			}
-			for (int i = R - 1; i >= 0; i--) {
+			length--;
+			if (length != 0) {
 				for (int j = 0; j < C; j++) {
-					if (!land[i][j]) {
-						if (i - length >= 0 && i - length < R - 1) {
-							picture[i][j] = picture[i-length][j];
-							picture[i][j] = '.';
-						}
+					if(locate[j][0]==-1) continue;//그 열에 유성이 없다면 넘어가기
+					for (int i = locate[j][0]; i >= 0; i--) {
+						picture[i + length][j] = picture[i][j];//땅과 유성의 최소거리만큼 옮기기
+						picture[i][j] = '.';
 					}
 				}
 			}
-
 		}
 		StringBuilder sb = new StringBuilder();
 		for (char[] a : picture) {
