@@ -62,9 +62,11 @@ public class BOJ_16234_인구이동 {
 					}
 				}
 			}
+			
 			boolean[][] visited = new boolean[N][N];
 			Queue<int[]> queue = new LinkedList<int[]>();
 			int uniNum = 0;
+			boolean isDiff =false;
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					if (visited[i][j])
@@ -85,23 +87,26 @@ public class BOJ_16234_인구이동 {
 						unions[temp[0]][temp[1]] = uniNum;
 						queue.addAll(link[temp[0]][temp[1]]);
 					}
+					
 					if (nowUnionNum == 1)
 						continue;
+					if(peopleNum ==0) continue;
 					int avg = peopleNum / nowUnionNum;
-					boolean isDiff = false;
+					isDiff = true;
 					for (int k = 0; k < N; k++) {
 						for (int l = 0; l < N; l++) {
-							if (unions[k][l] == uniNum && avg != world[k][l]) {
-								isDiff = true;
+							if (unions[k][l] == uniNum) {
+								
 								world[k][l] = avg;
 							}
 						}
 					}
-					if (isDiff)
-						result++;
+					
+					
 				}
 			}
-
+			if(isDiff) result++;
+			
 			if (Arrays.deepEquals(worlds, world)) {
 				break;
 			} else {
