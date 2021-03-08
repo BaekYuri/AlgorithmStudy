@@ -16,26 +16,27 @@ public class BOJ_18291_징검다리건너기 {
 				System.out.println(1);
 				continue;
 			}
-			BigInteger temp = new BigInteger("1");
-			BigInteger two = new BigInteger("2");
-			BigInteger big = new BigInteger("2");
-			BigInteger M =new BigInteger("1000000007");
+			long temp = 1;
+			long two = 2;
+			long big = 2;
+			long M =1000000007;
 			
 			N-=2;
 			while(N>0) {
 				if((N&1)!=0) {
-					temp = temp.multiply(big);
-					temp = temp.mod(M);
+					temp = temp*big;
+					temp = temp%M;
 				}
 				N /=2;
-				big = big.pow(2);
-				big = big.mod(M);
+				big = big*big;
+				big = big%M;
 			}
 			
 //			big = big.multiply(temp);
 //			big = big.mod(M);
 			
-			System.out.println(temp);
+			sb.append(temp).append("\n");
 		}
+		System.out.println(sb);
 	}
 }
