@@ -12,34 +12,16 @@ public class BOJ_16464_가주아 {
 		
 		for(int t=0;t<N;t++) {
 			int K = Integer.parseInt(br.readLine());
-			if(K ==2) {
-				System.out.println("GoHanGang");
-				return;
-			}
-			boolean isTrue = false;
 			
-			outer : for(int i=2;i<K;i++) {
-				BigInteger result = new BigInteger("1");
-				result = result.multiply(new BigInteger(Integer.toString(i)));
-				result = result.multiply(new BigInteger(Integer.toString(i+1)));
-				result = result.divide(new BigInteger("2"));
-				
-				for(int j=1;j<i;j++) {
-					BigInteger value = new BigInteger("1");
-					value = value.multiply(new BigInteger(Integer.toString(j)));
-					value = value.multiply(new BigInteger(Integer.toString(j+1)));
-					value = value.divide(new BigInteger("2"));
-					BigInteger sum = result.subtract(value);
-					if(sum.equals(new BigInteger(Integer.toString(K)))) {
-						isTrue = true;
-						break outer;
-					}
+			while(K!=1) {
+				if(K%2==1) {
+					System.out.println("Gazua");
+					break;
 				}
-				
+				K/=2;
 			}
-			if(isTrue) {
-				System.out.println("Gazua");
-			}else {
+			
+			if(K==1) {
 				System.out.println("GoHanGang");
 			}
 		}
