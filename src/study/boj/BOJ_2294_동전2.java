@@ -6,30 +6,35 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class BOJ_2294_동전2 {
+	static int n, k;
+	static int[] coin;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		k = Integer.parseInt(st.nextToken());
+		coin = new int[n];
+		for(int i=0;i<n;i++) {
+			coin[i] = Integer.parseInt(br.readLine());
+		}
 		int[] dp = new int[k + 1];
 		Arrays.fill(dp, Integer.MAX_VALUE);
 		dp[0] = 0;
-		int[] price = new int[n];
-		for (int a = 0; a < n; a++) {
-			price[a] = Integer.parseInt(br.readLine());
-			boolean[] visited = new boolean[k+1];
-			for (int i = 0; i <= k; i++) {
-				if (dp[i] == Integer.MAX_VALUE || visited[i])
-					continue;
-				for (int j = 1; i + j * price[a] <= k; j++) {
-					visited[i + j * price[a]] =true;
-					dp[i + j * price[a]] = Integer.min(dp[i + j * price[a]-price[a]]+1, dp[i] + j);
-
+		for(int i=1;i<k+1;i++) {
+			for(int j=0;j<n;j++) {
+				if(isIn(i-coin[j])&&dp[i-coin[j]]!=Integer.MAX_VALUE) {
+					dp[i]= Integer.min(dp[i-coin[j]]+1, dp[i]);
 				}
 			}
 		}
-		int result = dp[k];
-		System.out.println(result);
+		if(dp[k]==Integer.MAX_VALUE) {
+			System.out.println(-1);
+		}else {
+			System.out.println(dp[k]);
+		}
+	}
+	static boolean isIn(int a) {
+		return a>=0 && a<=k;
 	}
 }
