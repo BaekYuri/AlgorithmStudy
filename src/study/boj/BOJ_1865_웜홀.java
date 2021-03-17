@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 public class BOJ_1865_웜홀 {
 	static int N, M, W;
+
 	static int[][] road;
 	static boolean result;
 
@@ -71,4 +72,5 @@ public class BOJ_1865_웜홀 {
 			}
 		}
 	}
+
 }
