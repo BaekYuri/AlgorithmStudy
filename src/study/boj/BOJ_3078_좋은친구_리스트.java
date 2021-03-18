@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class BOJ_3078_좋은친구_리스트 {
@@ -13,29 +14,31 @@ public class BOJ_3078_좋은친구_리스트 {
 		
 		int N = Integer.parseInt(st.nextToken()); //우리반 학생 수
 		int K = Integer.parseInt(st.nextToken()); //등수 차이
-		ArrayList<Integer> charLeng[] = new ArrayList[21];
-		for(int i=2;i<=20;i++) {
-			charLeng[i] = new ArrayList<>();
-		}
+		List<Integer> list = new ArrayList<>();
+		
 		
 		
 		for(int t=0;t<N;t++) {
 			String s = br.readLine();
-			charLeng[s.length()].add(t);
+			list.add(s.length());
 		}
-		int result=0;
-		for(int l = 2; l<=20;l++) {
-			for(int i=0;i<charLeng[l].size()-1;i++) {
-				int startIdx= charLeng[l].get(i);
-				for(int j=i+1;j<charLeng[l].size();j++) {
-					int endIdx = charLeng[l].get(j);
-					if(endIdx-startIdx>K) break;
-					result++;
-				}
-			}
-		}
+		long result= 0;
+		int[] slide = new int[21];
 		
+		int first = list.get(0);
+		for(int i=0;i<K+1;i++) {
+			int firstLength = list.get(i);
+			slide[firstLength]++;
+		}
+		result += --slide[first];
+		for(int start=1;start<list.size()-1;start++) {
+			int nowLength = list.get(start);
+			if((start+K)<list.size()) {
+				int plusLength = list.get(start+K);
+				slide[plusLength]++;
+			}
+			result += --slide[nowLength];
+		}
 		System.out.println(result);
-		return;
 	}
 }
