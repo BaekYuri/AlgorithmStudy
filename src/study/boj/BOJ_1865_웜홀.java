@@ -38,31 +38,33 @@ public class BOJ_1865_웜홀 {
 				
 
 			}
-
+			
+			
+			
 			for (int i = 0; i < W; i++) {
 				st = new StringTokenizer(br.readLine());
 				int ss = Integer.parseInt(st.nextToken());
 				int ee = Integer.parseInt(st.nextToken());
 				int tt = Integer.parseInt(st.nextToken());
+				
 				road[ss][ee] = -tt;
 			}
 			
-			outer: for(int x=1;x<N+1;x++) {//출발 정점
-				int[] tempRoad= road[x].clone();
-				for(int tr=1; tr<N+1 ; tr++) {
-					for(int y=1;y<N+1;y++) {//거쳐서 갈 정점
-						if(y==x) continue;
-						for(int z=1;z<N+1;z++) {//도착 정점
-							if(tempRoad[y]==Integer.MAX_VALUE || road[y][z]==Integer.MAX_VALUE) continue;
-							tempRoad[z] = Integer.min(tempRoad[z], tempRoad[y]+road[y][z]);
-						}
-					}
-					if(tempRoad[x]<0) {
-						result = true;
-						break outer;
+			for(int x=1;x<N+1;x++) {//거쳐서 갈 정점
+				
+				for(int y=1;y<N+1;y++) {//출발 정점
+					if(y==x) continue;
+					for(int z=1;z<N+1;z++) {//도착 정점
+						if(road[y][x]==Integer.MAX_VALUE || road[x][z]==Integer.MAX_VALUE) continue;
+						road[y][z] = Integer.min(road[y][z], road[y][x]+road[x][z]);
 					}
 				}
-				
+			}
+			for(int x=1;x<N+1;x++) {
+				if(road[x][x]<0) {
+					result = true;
+					break;
+				}
 			}
 			
 			if (result) {
