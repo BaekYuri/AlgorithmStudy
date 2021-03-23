@@ -108,18 +108,12 @@ public class BOJ_20058_마법사상어와파이어스톰 {
 			}
 		}
 		if(isEmpty) return 0;
-		Map<Integer,Integer> map = new HashMap<>();
+		int temp[] = new int[length*length];
 		int max = 0;
 		for(int i=0;i<length*length;i++) {
 			int pr = find(i);
-			int val = 1;
-			if(map.containsKey(pr)) {
-				val = map.remove(pr)+1;
-				map.put(pr, val);
-			}else {
-				map.put(pr, 1);
-			}
-			max = Integer.max(max, val);
+			temp[pr]++;
+			max = Integer.max(max, temp[pr]);
 		}
 		
 		return max;
