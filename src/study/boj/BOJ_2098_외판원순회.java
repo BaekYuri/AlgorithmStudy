@@ -43,7 +43,7 @@ public class BOJ_2098_외판원순회 {
 		//나머지 경우 - 값을 찾아서 탐색
 		memo[cur][visited]= INF;
 		for(int i=0;i<N;i++) {
-			if((visited&(1<<i))==0 || graph[cur][i]!=0) {
+			if((visited&(1<<i))==0 && graph[cur][i]!=0) {
 				memo[cur][visited]= Math.min(memo[cur][visited], solve(i,visited|(1<<i))+graph[cur][i]);
 			}
 		}
