@@ -52,24 +52,36 @@ public class SWEA_1953_탈주범검거 {
 			visited[R][C] = true;
 			int depth = 1;
 			while (!queue.isEmpty()) {
-				if(depth >=L) break;
+				if (depth >= L)
+					break;
 				int size = queue.size();
 				while (size-- > 0) {
 					int[] now = queue.poll();
-					for(int i=0, x=map[now[0]][now[1]].size();i<x;i++) {
+					for (int i = 0, x = map[now[0]][now[1]].size(); i < x; i++) {
 						int[] temp = map[now[0]][now[1]].get(i);
-						if(!visited[temp[0]][temp[1]]) {
-							visited[temp[0]][temp[1]]= true;
-							queue.add(new int[] {temp[0],temp[1]});
+						if (!visited[temp[0]][temp[1]]) {
+							boolean isHave = false;
+							for (int j = 0, y = map[temp[0]][temp[1]].size(); j < y; j++) {
+								int[] r = map[temp[0]][temp[1]].get(j);
+								if (r[0] == now[0] && r[1] == now[1]) {
+									isHave = true;
+									break;
+								}
+							}
+							if (isHave) {
+								visited[temp[0]][temp[1]] = true;
+								queue.add(new int[] { temp[0], temp[1] });
+							}
 						}
 					}
 				}
 				depth++;
 			}
-			int cnt= 0;
-			for(int i=0;i<N;i++) {
-				for(int j=0;j<M;j++) {
-					if(visited[i][j]) cnt++;
+			int cnt = 0;
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < M; j++) {
+					if (visited[i][j])
+						cnt++;
 				}
 			}
 			sb.append("#").append(t).append(" ").append(cnt).append("\n");
@@ -123,25 +135,7 @@ public class SWEA_1953_탈주범검거 {
 		int nr = i + deltas[d][0];
 		int nc = j + deltas[d][1];
 		if (isIn(nr, nc)) {
-			switch (d) {
-			case 0:
-				if (mapArr[nr][nc] == 2 || mapArr[nr][nc] == 1 || mapArr[nr][nc] == 4 || mapArr[nr][nc] == 7) {
-					map[i][j].add(new int[] { nr, nc });
-				}
-				break;
-			case 1:
-				if (mapArr[nr][nc] == 1 || mapArr[nr][nc] == 3 || mapArr[nr][nc] == 6 || mapArr[nr][nc] == 7)
-					map[i][j].add(new int[] { nr, nc });
-				break;
-			case 2:
-				if (mapArr[nr][nc] == 1 || mapArr[nr][nc] == 2 || mapArr[nr][nc] == 5 || mapArr[nr][nc] == 6)
-					map[i][j].add(new int[] { nr, nc });
-				break;
-			case 3:
-				if (mapArr[nr][nc] == 1 || mapArr[nr][nc] == 3 || mapArr[nr][nc] == 4 || mapArr[nr][nc] == 5)
-					map[i][j].add(new int[] { nr, nc });
-				break;
-			}
+			map[i][j].add(new int[] { nr, nc });
 
 		}
 	}
