@@ -21,25 +21,30 @@ public class 정올_2577_회전초밥 {
 		for(int i=0;i<N;i++) {
 			sushi[i] = Integer.parseInt(br.readLine());
 		}
-		HashSet<Integer> set = new HashSet<>();
 		int[] count = new int[D+1];
+
+		int max = 0;
 		for(int i=0;i<K;i++) {
+			if(count[sushi[i]]==0) {
+				max++;
+			}
 			count[sushi[i]]++;
-			set.add(sushi[i]);
 		}
-		int max = set.size();
+		int cal = max;
 		if(count[C]==0) max++;
 		for(int i=1;i<N;i++) {
 			int poll = sushi[i-1];
 			count[poll]--;
-			if(count[poll]==0) set.remove(poll);
+			if(count[poll]==0) cal--;
 			
-			set.add(sushi[(i+K-1)%N]);
+			if(count[sushi[(i+K-1)%N]]==0) cal++;
 			count[sushi[(i+K-1)%N]]++;
-			int temp = set.size();
-			if(temp<max-1) continue;
-			if(count[C]==0) temp++;
-			max = Math.max(max, temp);
+			if(cal<max-1) continue;
+			if(count[C]==0)
+				max = Math.max(max, cal+1);
+			else
+				max = Math.max(max, cal);
+			if(max==K+1) break;
 		}
 		System.out.println(max);
 	}
