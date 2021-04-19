@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class SWEA_5607_조합 {
-	static int MOD = 1234567891;
+//못풀었어요..
+
+public class SWEA_3238_이항계수구하기 {
+	static int MOD;
 	static boolean[] sosu = new boolean[2000000];
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,20 +18,22 @@ public class SWEA_5607_조합 {
 		for(int t=1;t<=T;t++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			
-			int N = Integer.parseInt(st.nextToken());
-			int R = Integer.parseInt(st.nextToken());
-			
-			long[] p = new long[N+1];
+			long N = Long.parseLong(st.nextToken());
+			long R = Long.parseLong(st.nextToken());
+			MOD = Integer.parseInt(st.nextToken());
+			long[] p = new long[MOD+1];
 			p[0] = 1;
-			for(int i=1;i<=N;i++) {
+			for(int i=1;i<=MOD;i++) {
 				p[i] = (p[i-1]*i)%MOD;
 			}
-			
-			sb.append("#").append(t).append(" ").append((p[N]*pow((p[R]*p[N-R])%MOD,MOD-2))%MOD).append("\n");
+			long x = N/MOD;
+			long test = pow(p[MOD], x);
+			long temp  = p[(int)(R%MOD)]*p[(int)((N-R)%MOD)];
+			sb.append("#").append(t).append(" ").append((test*p[(int)(N%MOD)]*pow(temp%MOD,MOD-2))%MOD).append("\n");
 		}
 		System.out.println(sb);
 	}
-	static long pow(long a, int n) {
+	static long pow(long a, long n) {
 	    if (n == 0)
 	        return 1;
 	    long m = pow(a, n / 2);
