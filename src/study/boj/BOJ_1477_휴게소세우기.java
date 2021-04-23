@@ -42,7 +42,7 @@ public class BOJ_1477_휴게소세우기 {
 	
 		int[] now = queue.poll();
 		for(int j=0;j<M;j++) {
-			//배열 = {거리, start, end}
+			//배열 = {거리/등분, start, end, 등분한갯수}
 			int temp = (now[2]-now[1])/(now[3]+1);
 			if((now[2]-now[1])%(now[3]+1)!=0) temp++;
 			queue.add(new int[] {temp,now[1],now[2],now[3]+1});
