@@ -170,7 +170,7 @@ public class BOJ_12886_돌그룹 {
 			if (c != other.c)
 				return false;
 			return true;
-		}
+		} 
 		
 	}
 }
