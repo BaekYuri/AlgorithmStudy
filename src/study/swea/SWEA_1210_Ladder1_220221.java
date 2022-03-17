@@ -35,7 +35,7 @@ public class SWEA_1210_Ladder1_220221 {
 	}
 
 	private static int findStart(int[][] map, int[] end) {
-		int[][] deltas = {{0,1},{0,-1}}; //방향. 0:위 1:우 2:좌
+		int[][] deltas = {{0,1},{0,-1}}; //방향. 0:우 1:좌
 		
 		int[] nowState = new int[] {end[0],end[1]};
 		
